@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 // Crear el mapa de 30x50
-Mapa mapa = new Mapa (30, 50);
+Mapa mapa = new Mapa(30, 50);
 Mapa.MostrarPantallaInicio();
 
 // Lista de obstaculos de tipo lago.
@@ -71,7 +71,7 @@ mapa.AgregarGrupoObstaculos(arboles, '╦', ConsoleColor.Green);
 
 
 // JUGADOR------------------------------
-Jugador jugador = new (15,20 );
+Jugador jugador = new(15, 20);
 mapa.ColocarEntidad(jugador);
 
 
@@ -87,13 +87,13 @@ for (int i = 0; i < 6; i++)
 
     if (random.Next(2) == 0)
     {
-        var goblin = new Enemigo(fila, columna, 'G', ConsoleColor.Red, "Goblin", 2);
+        var goblin = new Enemigo(columna, fila, 'G', ConsoleColor.Red, "Goblin", 2);
         mapa.ColocarEntidad(goblin);
 
     }
     else
     {
-        var minotauro = new Enemigo(fila, columna, 'M', ConsoleColor.DarkRed, "Minotauro", 3);
+        var minotauro = new Enemigo(columna, fila, 'M', ConsoleColor.DarkRed, "Minotauro", 3);
         mapa.ColocarEntidad(minotauro);
 
     }
@@ -133,13 +133,14 @@ while (true)
 
     //  Limpiamos la pantalla (asi no imprimimos infinitas pantallas en cascada)
     //Console.Clear();
-    
+
     //  Movemos a Link (Mover a link ya limpia e imprime la posición de Link en cada iteración)
     jugador.MoverJugador(direccionY, direccionX);
-    
+
     // Patrullaje de enemigos (Patrullar ya limpia e imprime las posiciones de los enemigos en cada iteración).
-    foreach (Enemigo enemigo in Enemigo.Enemigos)
+    foreach (Enemigo enemigo in Enemigo.Enemigos.ToList())
         enemigo.Patrullar();
+
 
     // Mostramos el mapa final actualizado
     mapa.Mostrar();

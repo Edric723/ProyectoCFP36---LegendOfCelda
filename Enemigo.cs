@@ -4,7 +4,7 @@ using PracticaParaElRepo;
 
 public class Enemigo : Entidad // Herencia de la clase entidad.
 {
- 
+
     public string Nombre;
     public int Vida;
     public bool EstaActivo; // Enemigo patrullando
@@ -55,26 +55,22 @@ public class Enemigo : Entidad // Herencia de la clase entidad.
 
 
     // RECIBIR DAÑO
-    public override void RecibirDanio( int cantidadDanio)
+    public override void RecibirDanio(int cantidadDanio)
     {
         Vida -= cantidadDanio;
 
         Console.WriteLine($"Enemigo {Nombre} en ({PosicionX},{PosicionY}) recibió {cantidadDanio} de daño. Vida restante: {Vida}"); // FLAG de testeo
 
-        if (Vida == 0) // Si està muerto lo limpiamos del mapa y lo eliimanos de la lista de enemigos
+        EstaActivo = false; // Tanto si muere como si sigue vivo, deja de patrullar.
+
+        if (Vida <= 0)
         {
+            Vida = 0;
+
             if (Mapa.instance != null)
                 Mapa.instance.casillas[PosicionY, PosicionX].Ocupante = null;
 
-            
-            // Enemigo.Enemigos.Remove(this);
-            EstaActivo = false;
-            
-        }
-        else
-        {
-            EstaActivo = false;  // Si sigue vivo deja de patrullar.
-            
+            Enemigos.Remove(this);
         }
     }
 }
